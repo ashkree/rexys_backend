@@ -1,16 +1,15 @@
 import os
-import pandas as pd
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask_migrate import Migrate
-from models import db, Game, Movie  # Ensure these are your correct models
+from models import db
 from routes import register_blueprints
+from seed import seed_games_and_movies  # Import seeding logic
 
 load_dotenv()
 
 migrate = Migrate()
-
 
 def create_app():
     # Serve frontend files
@@ -21,7 +20,8 @@ def create_app():
 
     # CORS configuration
     CORS(app, resources={
-         r"/*": {"origins": ["https://rexys-frontend.vercel.app", "http://localhost:5173"]}})
+        r"/*": {"origins": ["https://rexys-frontend.vercel.app", "http://localhost:5173"]}
+    })
 
     # Initialize database and migrations
     db.init_app(app)
@@ -58,52 +58,13 @@ def initialize_data(app):
         db.create_all()
         print("Database tables created!")
 
-        # Load initial data into the database
-        # Games data
-        if not Game.query.first():  # Only load if no data exists
-            print("Loading games data...")
-            # Adjust path as needed
-            games_data = pd.read_csv('data/merged_steam_data.csv').head(4000)
-            games = [
-                Game(
-                    title=row['title'][:255],  # Truncate if necessary
-                    genre=row['genre'][:255],
-                    tags=row['tags'][:500],
-                    rating=row['rating'],
-                    cost=row['cost'],
-                    popularity=row['popularity']
-                )
-                for _, row in games_data.iterrows()
-            ]
-            db.session.bulk_save_objects(games)
-            db.session.commit()
-            print("Games data loaded successfully!")
-
-        # Movies data
-        if not Movie.query.first():
-            print("Loading movies data...")
-            # Adjust path as needed
-            movies_data = pd.read_csv('data/imdb_top_1000.csv').head(1000)
-            movies = [
-                Movie(
-                    title=row['title'][:255],
-                    genre=row['genre'][:255],
-                    tags=row['tags'][:500],
-                    rating=row['rating'],
-                    actors=row['actors'][:300],
-                    popularity=row['popularity']
-                )
-                for _, row in movies_data.iterrows()
-            ]
-            db.session.bulk_save_objects(movies)
-            db.session.commit()
-            print("Movies data loaded successfully!")
+        # Seed database
+        seed_games_and_movies()
 
 
 if __name__ == '__main__':
     app = create_app()
 
-    # Initialize the database and load data
     initialize_data(app)
 
     # Start the app with Gunicorn for production
