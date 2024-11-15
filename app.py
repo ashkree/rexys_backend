@@ -19,7 +19,7 @@ def create_app():
 
     # CORS configuration
     CORS(app, resources={
-         r"/*": {"origins": "https://your-frontend-domain.com"}})
+         r"/*": {"origins": os.getenv('FRONTEND_URL')}})
 
     # Initialize database
     db.init_app(app)
