@@ -140,8 +140,9 @@ class MovieRecommender(BaseRecommender):
             scores = []
             for idx, item in enumerate(available_items):
                 try:
-                    print(f"\nProcessing item {idx}: {
-                        item.get('title', 'Unknown')}")
+                    print(f"""
+                          \nProcessing item {idx}: {item.get('title', 'Unknown')}
+                            """)
 
                     preference_score = self.calculate_preference_score(
                         item, user_preferences)
