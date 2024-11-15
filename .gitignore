@@ -1,0 +1,25 @@
+# Python-related files
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Flask environment and secret files
+.env
+instance/
+config.py  # If you have custom configs
+
+# Vercel and Node.js
+node_modules/
+dist/
+.vscode/
+.DS_Store
+
+# Heroku
+*.env
+*.log
+
+# Cache files
+*.cache/
+*.tmp/
+
+venv/
