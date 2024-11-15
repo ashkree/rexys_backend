@@ -23,11 +23,11 @@ class Movie(db.Model):
     __tablename__ = 'movies'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    genre = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(500), nullable=False)
+    genre = db.Column(db.String(500), nullable=False)
     tags = db.Column(db.Text, nullable=True)
     rating = db.Column(db.Float, nullable=True)
-    actors = db.Column(db.String(255), nullable=True)
+    actors = db.Column(db.String(300), nullable=True)
     popularity = db.Column(db.Integer, nullable=True)
 
     # Many-to-many relationship
@@ -53,8 +53,8 @@ class Game(db.Model):
     __tablename__ = 'games'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    genre = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(500), nullable=False)
+    genre = db.Column(db.String(500), nullable=False)
     tags = db.Column(db.Text, nullable=True)
     rating = db.Column(db.Float, nullable=True)
     cost = db.Column(db.Float, nullable=True)

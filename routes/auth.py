@@ -6,6 +6,20 @@ auth_bp = Blueprint('auth', __name__)
 CORS(auth_bp)
 
 
+@auth_bp.route('/auth/register', methods=['OPTIONS', 'POST'])
+def register_user():
+    if request.method == 'OPTIONS':
+        return '', 204  # Respond to preflight
+    # Your POST logic here
+
+
+@auth_bp.route('/auth/login', methods=['OPTIONS', 'POST'])
+def rlogin_user():
+    if request.method == 'OPTIONS':
+        return '', 204  # Respond to preflight
+    # Your POST logic here
+
+
 @auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()

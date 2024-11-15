@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from models import db, Movie
-from app import app  # Import your Flask app
+from app import create_app  # Import your Flask app
 
 
 def extract_tags_with_tfidf(df, column='Overview', top_n=5):
@@ -58,7 +58,7 @@ def load_movies_with_tfidf(csv_path):
         movies.append(movie)
 
     # Insert into the database
-    with app.app_context():
+    with create_app().app_context():
         db.session.bulk_save_objects(movies)
         db.session.commit()
         print(f"""Inserted {len(movies)}

@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from models import db, Game
-from app import app
+from app import create_app
 
 
 def extract_tags_with_tfidf(df, column='detailed_description', top_n=5):
@@ -57,7 +57,7 @@ def load_games(csv_path, limit=5000):
             print(f"Error processing game {row['name']}: {e}")
 
     # Insert into database
-    with app.app_context():
+    with create_app().app_context():
         db.session.bulk_save_objects(games)
         db.session.commit()
         print(f"Successfully inserted {len(games)} games")
