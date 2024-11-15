@@ -284,8 +284,9 @@ class GameRecommender(BaseRecommender):
                 fuzzy_scores.append((item, score))
 
             except Exception as e:
-                print(f"Error computing recommendation for {
-                      item.get('title', '')}: {e}")
+                print(f"""
+                      Error computing recommendation for {item.get('title', '')}: {e}
+                    """)
 
         # Sort and return top recommendations
         ranked_items = sorted(fuzzy_scores, key=lambda x: x[1], reverse=True)
