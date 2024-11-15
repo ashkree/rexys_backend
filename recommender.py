@@ -114,15 +114,17 @@ class MovieRecommender(BaseRecommender):
             user_history = []
 
         try:
-            print(f"Starting recommendation process for {
-                  len(self.items)} items")
+            print(f"""
+                  Starting recommendation process for {len(self.items)} items
+                  """)
             print(f"User preferences: {user_preferences}")
             print(f"User history length: {len(user_history)}")
 
             available_items = [
                 item for item in self.items if item not in user_history]
-            print(f"Available items after history filter: {
-                  len(available_items)}")
+            print(f"""
+                  Available items after history filter: {len(available_items)}
+                  """)
 
             if not available_items:
                 return []
