@@ -1,23 +1,10 @@
 from flask import Blueprint, request, jsonify
-from flask_cors import CORS
 from models import db, User
 
+# Blueprint for auth routes
 auth_bp = Blueprint('auth', __name__)
-CORS(auth_bp)
 
-
-@auth_bp.route('/auth/register', methods=['OPTIONS', 'POST'])
-def register_user():
-    if request.method == 'OPTIONS':
-        return '', 204  # Respond to preflight
-    # Your POST logic here
-
-
-@auth_bp.route('/auth/login', methods=['OPTIONS', 'POST'])
-def rlogin_user():
-    if request.method == 'OPTIONS':
-        return '', 204  # Respond to preflight
-    # Your POST logic here
+# User Registration
 
 
 @auth_bp.route('/register', methods=['POST'])
@@ -43,7 +30,7 @@ def register():
         "user_id": new_user.id
     }), 201
 
-# User Sign In
+# User Login
 
 
 @auth_bp.route('/login', methods=['POST'])
